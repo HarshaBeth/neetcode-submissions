@@ -1,0 +1,27 @@
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        
+        l, r = 0, len(matrix)-1 # It's a n x n matrix
+
+        while l < r:
+            for i in range(r-l): # Not l-r+1 since we do (n-1) rotations each time
+                top, bottom = l, r # Because it's a n x n matrix
+
+                # Save the topleft
+                topLeft = matrix[top][l+i]
+
+                # Move bottom left into top left
+                matrix[top][l+i] = matrix[bottom-i][l]
+
+                # Move bottom right into bottom left
+                matrix[bottom - i][l] = matrix[bottom][r-i]
+
+                # Move top right into bottom right
+                matrix[bottom][r-i] = matrix[top + i][r]
+
+                # Move top left into top right
+                matrix[top+i][r] = topLeft
+
+            r -= 1
+            l += 1
+        
